@@ -1,14 +1,12 @@
 const form = document.querySelector(".login-form");
-
 const btn = document.querySelector(".button[type='submit']");
-
 const btnStyle = document.querySelector("button");
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  const emailValue = form.elements.email.value;
-  const passwordValue = form.elements.password.value;
+  const emailValue = form.elements.email.value.trim();
+  const passwordValue = form.elements.password.value.trim();
 
   if (emailValue === "" || passwordValue === "") {
     alert("All form fields must be filled in");
@@ -27,8 +25,6 @@ form.addEventListener("submit", (event) => {
   form.reset();
 });
 
-
-
 form.style.display = "block";
 form.style.margin = "0 auto";
 form.style.padding = "24px";
@@ -42,7 +38,7 @@ form.style.fontWeight = "400";
 
 btnStyle.style.display = "block";
 btnStyle.style.marginTop = "16px";
-btnStyle.style.heigth = "40px";
+btnStyle.style.height = "40px"; // Corrected from 'heigth'
 btnStyle.style.width = "86px";
 btnStyle.style.border = "none";
 btnStyle.style.fontSize = "16px";
@@ -54,3 +50,4 @@ btnStyle.style.backgroundColor = "#4E75FF";
 btnStyle.style.color = "white";
 btnStyle.style.padding = "8px 16px";
 btnStyle.style.borderRadius = "8px";
+

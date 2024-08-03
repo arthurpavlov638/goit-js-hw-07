@@ -1,49 +1,51 @@
-const create = document.querySelector("button[data-create]");
-const destroy = document.querySelector("button[data-destroy]");
+const createBtn = document.querySelector("button[data-create]");
+const destroyBtn = document.querySelector("button[data-destroy]");
 const input = document.querySelector("input[type='number']");
-const box = document.querySelector("#boxes");
-const buttons = document.querySelector("#controls");
+const boxesContainer = document.querySelector("#boxes");
 
 function getRandomHexColor() {
-  return `#${Math.floor(Math.random() * 16777215)
-    .toString(16)
-    .padStart(6, 0)}`;
+  return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, 0)}`;
 }
 
 function destroyBoxes() {
-  box.innerHTML = "";
+  boxesContainer.innerHTML = "";
 }
 
-function createBox(amount) {
-  let size = 30;
-  const arr = []; // створюємо пустий масив.
-  for (let i = 1; i <= amount; i++) {
-    // заповнюємо пустий масив строками n разів.
-    arr.push(
-      `<div class='item' style = "width: ${size}px; height: ${size}px; border: 1px solid #000; background-color: ${getRandomHexColor()}"></div>`
-    );
-  }
-  box.innerHTML = arr.join(""); // обєднуємо масив в одну строку
-  size += 10;
-}
-
-create.addEventListener("click", () => {
-  const inputValue = parseInt(input.value);
+function createBoxes(amount) {
   destroyBoxes();
-  if (inputValue !== 0 && inputValue <= 100) {
-    createBox(inputValue); //викликає функцію з вкладеним параметром inputValue і отримує вже готовий рядок з n - кількістю.
+  let size = 30;
+  const boxes = [];
+
+  for (let i = 0; i < amount; i++) {
+    const box = document.createElement("div");
+    box.style.width = `${size}px`;
+    box.style.height = `${size}px`;
+    box.style.backgroundColor = getRandomHexColor();
+    boxes.push(box);
+    size += 10; // Збільшуємо розмір кожного наступного боксу
   }
+
+  boxesContainer.append(...boxes);
+}
+
+createBtn.addEventListener("click", () => {
+  const amount = parseInt(input.value);
+
+  if (amount >= 1 && amount <= 100) {
+    createBoxes(amount);
+  }
+
   input.value = "";
 });
 
-destroy.addEventListener("click", destroyBoxes);
+destroyBtn.addEventListener("click", destroyBoxes);
 
-// ul styles
-box.style.display = "flex";
-box.style.flexWrap = "wrap";
-box.style.gap = "44px";
-box.style.marginTop = "16px";
-// INPUT styles
+// Styling
+boxesContainer.style.display = "flex";
+boxesContainer.style.flexWrap = "wrap";
+boxesContainer.style.gap = "10px";
+boxesContainer.style.marginTop = "16px";
+
 input.style.width = "150px";
 input.style.height = "40px";
 input.style.fontFamily = "Montserrat";
@@ -53,35 +55,34 @@ input.style.lineHeight = "24px";
 input.style.letterSpacing = "0.04em";
 input.style.border = "1px solid #808080";
 input.style.borderRadius = "8px";
-input.style.padding = "8px 8px";
-// DIV buttons styles
-create.style.fontFamily = "Montserrat";
-destroy.style.fontFamily = "Montserrat";
-buttons.style.display = "flex";
-buttons.style.gap = "16px";
-// button styles CREATE
-create.style.heigth = "40px";
-create.style.width = "120px";
-create.style.border = "none";
-create.style.fontSize = "16px";
-create.style.cursor = "pointer";
-create.style.fontWeight = "500";
-create.style.lineHeight = "24px";
-create.style.letterSpacing = "4%";
-create.style.backgroundColor = "#4E75FF";
-create.style.color = "white";
-create.style.padding = "8px 31px";
-create.style.borderRadius = "8px";
-// button styles DESTROY
-destroy.style.heigth = "40px";
-destroy.style.width = "120px";
-destroy.style.border = "none";
-destroy.style.fontSize = "16px";
-destroy.style.cursor = "pointer";
-destroy.style.fontWeight = "500";
-destroy.style.lineHeight = "24px";
-destroy.style.letterSpacing = "4%";
-destroy.style.backgroundColor = "#FF4E4E";
-destroy.style.color = "white";
-destroy.style.padding = "8px 31px";
-destroy.style.borderRadius = "8px";
+input.style.padding = "8px";
+
+createBtn.style.height = "40px";
+createBtn.style.width = "120px";
+createBtn.style.border = "none";
+createBtn.style.fontSize = "16px";
+createBtn.style.cursor = "pointer";
+createBtn.style.fontWeight = "500";
+createBtn.style.lineHeight = "24px";
+createBtn.style.letterSpacing = "4%";
+createBtn.style.backgroundColor = "#4E75FF";
+createBtn.style.color = "white";
+createBtn.style.padding = "8px 31px";
+createBtn.style.borderRadius = "8px";
+
+destroyBtn.style.height = "40px";
+destroyBtn.style.width = "120px";
+destroyBtn.style.border = "none";
+destroyBtn.style.fontSize = "16px";
+destroyBtn.style.cursor = "pointer";
+destroyBtn.style.fontWeight = "500";
+destroyBtn.style.lineHeight = "24px";
+destroyBtn.style.letterSpacing = "4%";
+destroyBtn.style.backgroundColor = "#FF4E4E";
+destroyBtn.style.color = "white";
+destroyBtn.style.padding = "8px 31px";
+destroyBtn.style.borderRadius = "8px";
+
+const controls = document.querySelector("#controls");
+controls.style.display = "flex";
+controls.style.gap = "16px";
